@@ -1,5 +1,6 @@
 # EasierShulkers
 Easier way to access shulkers
+
 CurseForge Page: https://www.curseforge.com/minecraft/mc-mods/easier-shulkers
 
 ## How to use
