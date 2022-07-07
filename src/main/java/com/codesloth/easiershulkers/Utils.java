@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ShulkerBoxMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
@@ -26,17 +25,7 @@ public class Utils {
     }
 
     public static boolean isShulkerBox(ItemStack stack) {
-        if (stack == null) {
-            return false;
-        }
-
-        Item item = stack.getItem();
-
-        if (Block.byItem(item) instanceof ShulkerBoxBlock) {
-            return true;
-        }
-
-        return false;
+        return stack != null && Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock;
     }
 
     public static void openShulkerBox(Player player, ItemStack stack) {

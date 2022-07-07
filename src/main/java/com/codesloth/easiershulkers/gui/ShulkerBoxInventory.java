@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class ShulkerBoxInventory implements Container, MenuProvider {
 
@@ -60,7 +61,7 @@ public class ShulkerBoxInventory implements Container, MenuProvider {
 
     public void fillWithLoot(@Nullable Player player) {
         if (lootTable != null && player != null) {
-            LootTable loottable = player.level.getServer().getLootTables().get(lootTable);
+            LootTable loottable = Objects.requireNonNull(player.level.getServer()).getLootTables().get(lootTable);
             lootTable = null;
 
             LootContext.Builder builder = new LootContext.Builder((ServerLevel) player.level);
@@ -108,12 +109,9 @@ public class ShulkerBoxInventory implements Container, MenuProvider {
 
     @Override
     public void setChanged() {
-        CompoundTag tag = shulkerBox.getOrCreateTag();
-        if (blockEntityTag == null) {
-            tag.put("BlockEntityTag", blockEntityTag = new CompoundTag());
-        } else {
-            tag.put("BlockEntityTag", blockEntityTag);
-        }
+        shulkerBox.getOrCreateTag()
+                  .put("BlockEntityTag",
+                          Objects.requireNonNullElseGet(blockEntityTag, () -> blockEntityTag = new CompoundTag()));
 
         ContainerHelper.saveAllItems(blockEntityTag, items, true);
     }
